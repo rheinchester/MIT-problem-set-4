@@ -214,25 +214,3 @@ models = generate_models(x, y, [1])
 evaluate_models_on_training(x, y, models)
 
 
-# # Problem 4: FILL IN MISSING CODE TO GENERATE y VALUES
-#%%
-# x1 = INTERVAL_1
-# x2 = INTERVAL_2
-# # x = x1+x2
-# # print(len(x), len(x2), len(x1))
-# y = []
-# for year in INTERVAL_1:
-#     y.append(np.mean(raw_data.get_yearly_temp('BOSTON', year)))
-# models = generate_models(x1, y, [1])    
-# evaluate_models_on_training(x1, y, models)
-
-# x = INTERVAL_1
-x1 = list(range(1961, 2006))
-x2= list(range(2006, 2016))
-# x2 = INTERVAL_2
-
-
-
-
-
-#%%
