@@ -1,4 +1,4 @@
-
+#%%
 import numpy as np
 import pylab
 import re
@@ -136,6 +136,7 @@ def generate_models(x, y, degs):
 
     models = []
     for degree in degs:
+        assert len(y) == len(x), 'Dimensions have unequal length{len()}'
         model = np.polyfit(x, y, degree)
         models.append(model)
     return models
@@ -160,7 +161,7 @@ def r_squared(y, estimated):
     return 1 - numerator/denominator
 
     
-
+#%%
 # Problem 3
 def evaluate_models_on_training(x, y, models):
     """
@@ -183,36 +184,55 @@ def evaluate_models_on_training(x, y, models):
     Returns:
         None
     """
-    # TODO
-    pass
+    
+    pylab.plot(x, y, 'bo', label='Measured weather per year')
+    pylab.title('Measured weather per year in a particular city')
+    pylab.xlabel('Year')
+    pylab.ylabel('Weather')
+
+    # finding linear fit
+    a, b = models[0]
+    predictedY = a  * np.array(x) + b
+    pylab.plot(x, predictedY, 'ro', label='Measured displacements')
+    pylab.title('Measured weather per year in a particular city')
+    pylab.xlabel('Year')
+    pylab.ylabel('Weather')
+    pylab.show()
+    print(r_squared(y, predictedY))
 
 
-# ### Begining of program
-# raw_data = Climate('data.csv')
+
+### Begining of program
+raw_data = Climate('data.csv')
 
 # # Problem 3
-# y = []
-# x = INTERVAL_1
-# for year in INTERVAL_1:
-#     y.append(raw_data.get_daily_temp('BOSTON', 1, 10, year))
-# models = generate_models(x, y, [1])
-# evaluate_models_on_training(x, y, models)
+y = []
+x = INTERVAL_1
+for year in INTERVAL_1:
+    y.append(np.mean(raw_data.get_daily_temp('BOSTON', 1, 10, year)))
+models = generate_models(x, y, [1])
+evaluate_models_on_training(x, y, models)
 
 
 # # Problem 4: FILL IN MISSING CODE TO GENERATE y VALUES
+#%%
 # x1 = INTERVAL_1
 # x2 = INTERVAL_2
+# # x = x1+x2
+# # print(len(x), len(x2), len(x1))
 # y = []
-# # MISSING LINES
-# models = generate_models(x, y, [1])    
-# evaluate_models_on_training(x, y, models)
-# #%%
-# # x = INTERVAL_1
-# x1 = list(range(1961, 2006))
-# x2= list(range(2006, 2016))
-# # x2 = INTERVAL_2
-y= [73, 45, 23, 11]
-estimated = [3, 32, 11, 22]
+# for year in INTERVAL_1:
+#     y.append(np.mean(raw_data.get_yearly_temp('BOSTON', year)))
+# models = generate_models(x1, y, [1])    
+# evaluate_models_on_training(x1, y, models)
 
-print(r_squared(y, estimated))
+# x = INTERVAL_1
+x1 = list(range(1961, 2006))
+x2= list(range(2006, 2016))
+# x2 = INTERVAL_2
 
+
+
+
+
+#%%
